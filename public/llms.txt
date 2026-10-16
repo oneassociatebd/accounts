@@ -1,0 +1,9 @@
+# One Associate
+
+> Billing and client management system for professional invoicing, collections, and customer ledgers.
+
+One Associate is a private billing and ERP application. Most of the product lives behind authentication. Only the pages below are intended for public/AI crawler use.
+
+## Pages
+
+- [Sign In](/login): Sign in to the One Associate workspace.

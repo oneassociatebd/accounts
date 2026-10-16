@@ -1,0 +1,1 @@
+ALTER TABLE public.company_settings ADD COLUMN IF NOT EXISTS invoice_active boolean NOT NULL DEFAULT true;

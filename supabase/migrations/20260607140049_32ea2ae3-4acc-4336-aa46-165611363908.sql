@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "auth read bank_accounts" ON public.bank_accounts;

@@ -1,0 +1,1 @@
+ALTER FUNCTION public.has_role(uuid, app_role) SECURITY INVOKER;

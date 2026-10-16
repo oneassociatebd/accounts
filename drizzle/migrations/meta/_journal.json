@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792126727038,
+      "tag": "0000_fix_company_settings_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792126829148,
+      "tag": "0001_create_restore_backup_chunk",
+      "breakpoints": true
+    }
+  ]
+}

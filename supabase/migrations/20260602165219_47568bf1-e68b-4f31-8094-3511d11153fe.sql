@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Public read company-assets" ON storage.objects;

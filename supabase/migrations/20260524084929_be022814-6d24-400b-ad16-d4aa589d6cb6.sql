@@ -1,0 +1,1 @@
+UPDATE public.bills SET bill_no = 'INV-' || LPAD(REGEXP_REPLACE(bill_no, '^\D+', ''), 5, '0') WHERE bill_no LIKE 'BILL-%';
