@@ -85,7 +85,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (cancelled) return;
         setRole((me?.role as Role) ?? null);
         setPermissions((me as any)?.permissions ?? {});
-      } catch {
+      } catch (err) {
+        console.error("[Auth] getMe failed:", err);
         if (!cancelled) {
           setRole(null);
           setPermissions({});
