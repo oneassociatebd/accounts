@@ -26,12 +26,12 @@ FROM oven/bun:1.2-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=80
 
 # Copy all project files and built assets
 COPY --from=builder /app ./
 
-EXPOSE 3000
+EXPOSE 80
 
-# Start preview server on 0.0.0.0:3000
-CMD ["bun", "run", "vite", "preview", "--host", "0.0.0.0", "--port", "3000"]
+# Start preview server on 0.0.0.0:80
+CMD ["bun", "run", "vite", "preview", "--host", "0.0.0.0", "--port", "80"]
