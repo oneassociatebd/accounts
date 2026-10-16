@@ -83,10 +83,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const me = await getMe();
         if (cancelled) return;
-        setRole((me?.role as Role) ?? null);
-        setPermissions((me as any)?.permissions ?? {});
+        if (me?.role) {
+          setRole((me.role as Role) ?? null);
+          setPermissions((me as any)?.permissions ?? {});
+          return;
+        }
       } catch (err) {
-        console.error("[Auth] getMe failed:", err);
+        console.warn("[Auth] getMe server function failed, falling back to direct client query:", err);
+      }
+
+      // Robust fallback: If getMe RPC fails (e.g. server-side network/env issue), query user_roles directly via client SDK
+      try {
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id);
+        if (cancelled) return;
+        const roleList = (roles ?? []).map((r: any) => r.role);
+        const resolvedRole = roleList.includes("admin") ? "admin" : roleList.includes("manager") ? "manager" : null;
+        setRole(resolvedRole as Role);
+
+        if (resolvedRole) {
+          const { data: perms } = await supabase
+            .from("role_permissions")
+            .select("permission_key, allowed")
+            .eq("role", resolvedRole);
+          if (cancelled) return;
+          setPermissions(Object.fromEntries((perms ?? []).map((p: any) => [p.permission_key, !!p.allowed])));
+        }
+      } catch (clientErr) {
+        console.error("[Auth] Direct client role fetch failed:", clientErr);
         if (!cancelled) {
           setRole(null);
           setPermissions({});
