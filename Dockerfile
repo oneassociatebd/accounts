@@ -27,11 +27,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=80
+ENV NITRO_PORT=80
+ENV NITRO_HOST=0.0.0.0
 
 # Copy all project files and built assets
 COPY --from=builder /app ./
 
 EXPOSE 80
 
-# Start preview server on 0.0.0.0:80
-CMD ["bun", "run", "vite", "preview", "--host", "0.0.0.0", "--port", "80"]
+# Start standalone Nitro SSR server on port 80
+CMD ["bun", "run", ".output/server/index.mjs"]
